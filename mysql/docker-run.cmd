@@ -1,0 +1,1 @@
+docker run --privileged=true --name loamen-mysql -p 3306:3306 -v /my/mysql/data:/var/lib/mysql -v /my/mysql/conf.d:/etc/mysql/conf.d -v /my/mysql/logs:/var/log/mysql -d loamen-mysql:5.7

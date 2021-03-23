@@ -1,4 +1,4 @@
-FROM mysql:5.7.30
+FROM daocloud.io/library/mysql:5.7
 
 MAINTAINER don
 EXPOSE 3306

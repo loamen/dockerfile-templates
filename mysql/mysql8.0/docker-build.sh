@@ -1,0 +1,1 @@
+docker build -f Dockerfile -t loamen-mysql:8.0 --no-cache=true .

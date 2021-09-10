@@ -1,6 +1,4 @@
 #!/bin/bash
-# Script For Quick Pull K8S Docker Images
-# by Hellxz Zhang <hellxz001@foxmail.com>
 
 echo "1.启用k8s"
 sudo systemctl enable kubelet

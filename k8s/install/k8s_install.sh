@@ -1,22 +1,18 @@
 #!/bin/bash
 
 echo "1.更新环境"
-
 sudo apt update
 sudo apt -y upgrade 
 
 
 echo "2.关闭swap分区"
-
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 sudo swapoff -a
 
 echo "3.关闭防火墙"
-
 sudo ufw disable
 
 echo "4.设置参数"
-
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -29,6 +25,8 @@ EOF
 sudo sysctl --system
 
 echo "5.安装docker"
+#安装证书
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
 
 #设置阿里云镜像源
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"

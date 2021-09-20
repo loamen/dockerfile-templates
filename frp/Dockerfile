@@ -10,24 +10,26 @@ COPY conf /etc/nginx/conf.d
 COPY frp /opt/frp
 COPY html /usr/share/nginx/html
 
+WORKDIR /opt/frp
+
 
 RUN sed -r -i 's/(archive|security)\.ubuntu\.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
   && apt-get update \
+  && apt-get install procps \
   && apt-get install nginx -y \
   && echo "\ndaemon off;">>/etc/nginx/nginx.conf  \
   && chown -R www-data:www-data /var/lib/nginx \
-  && ln -s /opt/frp/systemd/frpc.service /etc/systemd/system/frpc.service \
-  && ln -s /opt/frp/systemd/frpc@.service /etc/systemd/system/frpc@.service \
-  && ln -s /opt/frp/systemd/frps.service/etc/systemd/system/frps.service \
-  && ln -s /opt/frp/systemd/frps@.service /etc/systemd/system/frps@.service \
   && echo "[Nginx] build OK" \
 
   # clean
   && rm -rf /tmp/* \
   && apt autoremove -y \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 #定义可被挂载的目录，分别是虚拟机的挂载目录、证书目录、配置目录和日志目录
 VOLUME ["/usr/share/nginx/html","/etc/nginx/certs","/etc/nginx/conf.d","/var/log/nginx"]
 VOLUME ["/opt/frp/logs","/opt/frp/conf"]
+
+#ENTRYPOINT ["/opt/frp/startc.sh"]
+CMD ["bash", "-c", "/opt/frp/startc.sh"]

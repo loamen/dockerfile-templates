@@ -68,10 +68,23 @@ docker run --privileged=true --name loamen-frp \
 	-d loamen/frp:0.37.1
 ```
 
+暴露端口
+```
+docker run --privileged=true --name loamen-frp \
+	-p 10080:80 \
+	-p 10443:443 \
+	-p 17000:7000 \
+	-d loamen/frp:0.37.1
+```
+
 全部设置
+
 ```
 docker run --privileged=true --name loamen-frp \
 	--env FRP_TYPE=client \
+	-p 10080:80 \
+	-p 10443:443 \
+	-p 17000:7000 \
 	-v /host/path/nginx/html:/usr/share/nginx/html \
 	-v /host/path/nginx/conf:/etc/nginx/conf.d \
 	-v /host/path/frp/conf:/opt/frp/conf \

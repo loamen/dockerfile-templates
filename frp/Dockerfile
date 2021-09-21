@@ -1,5 +1,7 @@
 FROM nginx:latest
 
+MAINTAINER don
+
 #定义端口
 EXPOSE 80
 EXPOSE 443

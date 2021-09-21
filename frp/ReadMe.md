@@ -3,6 +3,9 @@
 ​	frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。
 ​	docker frp提供frps和frpc容器版本，并自带nginx，用于frpc穿透指向到不同服务器。
 
+​	应用场景：将内网多台服务器映射到外网。
+![应用场景](https://gitee.com/loamen/dockerfile-templates/raw/master/frp/docker/html/frp_net.png)
+
 
 
 ## 2.获取docker frp

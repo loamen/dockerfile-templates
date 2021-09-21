@@ -3,9 +3,9 @@ FROM nginx:latest
 MAINTAINER don
 
 #定义端口
-EXPOSE 80
-EXPOSE 443
-EXPOSE 7000
+#EXPOSE 80
+#EXPOSE 443
+#EXPOSE 7000
 
 #### 配置文件
 COPY conf /etc/nginx/conf.d

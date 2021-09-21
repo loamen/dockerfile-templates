@@ -109,3 +109,6 @@ docker run --privileged=true --name loamen-frp \
 	-v /host/path/frp/logs:/opt/frp/logs \
 	-d loamen/frp:0.37.1
 ```
+
+
+##### 注意：由于docker进程限制，需要进入容器手动执行`./start_frp.sh`

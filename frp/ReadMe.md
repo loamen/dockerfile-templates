@@ -4,6 +4,7 @@
   docker frp提供frps和frpc容器版本，并自带nginx，用于frpc穿透指向到不同服务器。
 
 应用场景：将内网多台服务器映射到外网。
+
 ![应用场景](https://gitee.com/loamen/dockerfile-templates/raw/master/frp/docker/html/frp_net.png)
 
 

@@ -1,11 +1,20 @@
 ## 1.Frp简介
-	frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。
-	docker frp提供frps和frpc容器版本，并自带nginx，用于frpc穿透指向到不同服务器。
+
+​	frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。
+​	docker frp提供frps和frpc容器版本，并自带nginx，用于frpc穿透指向到不同服务器。
+
+
 
 ## 2.获取docker frp
+
+获取docker frp
+
 > $ docker pull  loamen/frp:0.37.1
 
+
+
 ## 3.目录结构
+
 ```
 /opt/frp/
 |-- LICENSE
@@ -24,8 +33,13 @@
     `-- frps@.service
 ```
 
+
+
 ## 4.Nginx配置
-	nginx配置请参考官方文档：https://hub.docker.com/_/nginx
+
+​	nginx配置请参考官方文档：https://hub.docker.com/_/nginx
+
+
 
 ## 5.运行
 
@@ -71,9 +85,9 @@ docker run --privileged=true --name loamen-frp \
 暴露端口
 ```
 docker run --privileged=true --name loamen-frp \
-	-p 10080:80 \
-	-p 10443:443 \
-	-p 17000:7000 \
+	-p 80:80 \
+	-p 9000:9000 \
+	-p 7000:7000 \
 	-d loamen/frp:0.37.1
 ```
 
@@ -82,9 +96,9 @@ docker run --privileged=true --name loamen-frp \
 ```
 docker run --privileged=true --name loamen-frp \
 	--env FRP_TYPE=client \
-	-p 10080:80 \
-	-p 10443:443 \
-	-p 17000:7000 \
+	-p 80:80 \
+	-p 9000:9000 \
+	-p 7000:7000 \
 	-v /host/path/nginx/html:/usr/share/nginx/html \
 	-v /host/path/nginx/conf:/etc/nginx/conf.d \
 	-v /host/path/frp/conf:/opt/frp/conf \

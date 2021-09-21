@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-if [ "$FRP_TYPE" == 'server' ]; then
-    echo "开始执行frps"
+if [ "$FRP_TYPE" == "server" ]; then
+    echo "frps starting..."
 	nohup /opt/frp/frps -c /opt/frp/conf/frps.ini  > /opt/frp/logs/server.log 2>&1 &
-	echo "执行frps结束"
+	echo "frps started"
 else
-    echo "开始执行frpc"
+    echo "frpc starting..."
 	nohup /opt/frp/frpc -c /opt/frp/conf/frpc.ini  > /opt/frp/logs/client.log 2>&1 &
-	echo "执行frpc结束"
+	echo "frpc started"
 fi

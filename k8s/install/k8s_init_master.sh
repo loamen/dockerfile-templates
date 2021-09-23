@@ -4,8 +4,8 @@ echo "1.启用k8s"
 sudo systemctl enable kubelet
 lsmod | grep br_netfilter
 
-echo "2.初始化master节点"
 echo -e "\n\n"
+echo "2.初始化master节点"
 echo "============="
 echo -e "\033[31m 请输入master节点的HostName: \033[0m"
 read hostName
@@ -20,15 +20,19 @@ echo "3.master节点配置"
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-sudo export KUBECONFIG=/etc/kubernetes/admin.conf
+#sudo export KUBECONFIG=/etc/kubernetes/admin.conf
+
+sleep 10
 
 echo "\n\n=================\n\n"
 echo "4.初始化网络（选取一种执行）"
 
 echo "安装flannel网络插件"
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-curl -C- -fLO --retry 3 https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
-kubectl apply -f kube-flannel-rbac.yml
+sleep 3
+#curl -C- -fLO --retry 3 https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+#sleep 3
+#kubectl apply -f kube-flannel-rbac.yml
 
 echo "calico网络插件"
 echo "kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml"

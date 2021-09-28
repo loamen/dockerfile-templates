@@ -8,9 +8,9 @@ MAINTAINER don
 #EXPOSE 7000
 
 #### 配置文件
-COPY conf /etc/nginx/conf.d
+COPY nginx/conf /etc/nginx/conf.d
+COPY nginx/html /usr/share/nginx/html
 COPY frp /opt/frp
-COPY html /usr/share/nginx/html
 
 #设置工作目录
 WORKDIR /opt/frp

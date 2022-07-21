@@ -1,4 +1,6 @@
+#!/bin/sh
 #docker rm -f loamen-mysql -v
-docker rm -f -v $(docker ps -a | grep "loamen/frp:0.39.1" | awk '{print $1}')
-docker rmi loamen/frp:0.39.1
+source ./version.sh
+docker rm -f -v $(docker ps -a | grep "loamen/frp:${version}" | awk '{print $1}')
+docker rmi loamen/frp:${version}
 docker images

@@ -20,19 +20,20 @@ WORKDIR /opt/frp
 ENV FRP_TYPE="client"
 
 
-RUN sed -r -i 's/(deb|archive|security)\.debian\.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
-  && apt-get update \
-  && apt-get install net-tools iputils-ping -y \
-  && echo "[Nginx] build OK" \
+RUN sed -r -i 's/(deb|archive|security)\.debian\.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install net-tools iputils-ping -y
+RUN echo "[Nginx] build OK"
 
-  #设置时区
-  && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-  && echo 'Asia/Shanghai' >/etc/timezone \
+#设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
 
-  # clean
-  && rm -rf /tmp/* \
-  && apt autoremove -y \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# clean
+RUN rm -rf /tmp/*
+RUN apt-get autoremove -y
+RUN apt-get clean 
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 #定义可被挂载的目录，分别是虚拟机的配置目录和日志目录

@@ -109,6 +109,65 @@ docker run --privileged=true --name loamen-frp \
 	-v /host/path/frp/logs:/opt/frp/logs \
 	-d loamen/frp:0.37.1
 ```
+docker启动后，可打开浏览器`http://loacalhost:80`查看，如果`80`端口被占用，请映射其他端口。
+
+## 6.示例
+
+如：内网服务A（`192.168.0.101:8001`）、内网服务B（`192.168.0.102:8002`）、内网服务C（`192.168.0.103:8003`）
+Nginx转发配置（`default.conf`）如下：
+```
+server {
+    listen       8001;
+    server_name  localhost;
 
 
-##### 注意：由于docker进程限制，需要进入容器手动执行`./start_frp.sh`
+    location / {
+		proxy_pass http://192.168.0.101:8001/;
+		proxy_set_header Host $host:$server_port;
+	}
+}
+
+server {
+    listen       8002;
+    server_name  localhost;
+
+
+    location / {
+		proxy_pass http://192.168.0.102:8002/;
+		proxy_set_header Host $host:$server_port;
+	}
+}
+
+server {
+    listen       8003;
+    server_name  localhost;
+
+
+    location / {
+		proxy_pass http://192.168.0.103:8003/;
+		proxy_set_header Host $host:$server_port;
+	}
+}
+```
+
+frp客户端配置（`frpc.ini`）如下
+
+```
+[web_a]
+type = http
+local_port = 8001
+custom_domains = a.loamen.com
+
+[web_b]
+type = http
+local_port = 8002
+custom_domains = b.loamen.com
+
+[web_c]
+type = http
+local_port = 8003
+custom_domains = c.loamen.com
+```
+
+
+##### 注意：由于docker进程限制，需要进入容器手动执行`./start_frp.sh`或`bash start_frp.sh`

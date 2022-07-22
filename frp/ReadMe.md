@@ -5,7 +5,7 @@
 
 应用场景：将内网多台服务器映射到外网。
 
-![应用场景](https://gitee.com/loamen/dockerfile-templates/raw/master/frp/docker/html/frp_net.png)
+![应用场景](docker/nginx/html/images/frp_net.png)
 
 
 
@@ -13,7 +13,7 @@
 
 获取docker frp
 
-> $ docker pull  loamen/frp:0.37.1
+> $ docker pull  loamen/frp:0.44.0
 
 
 

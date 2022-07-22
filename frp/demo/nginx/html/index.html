@@ -1,15 +1,149 @@
-<!DOCTYPE html>
-<html>
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
-  <title>Lomen frp</title>
- </head>
- <body>
-  	<div style="text-align:center"><a href="http://www.loamen.com">loamen frp网络拓扑图</a></div>
-	<div style="text-align:center"><img src="frp_net.png" title="loamen frp网络拓扑图" alt="loamen.com" /></div>
- </body>
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Author" content="Loamen frp">
+    <meta name="Keywords" content="Loamen frp">
+    <meta name="Description" content="Loamen frp">
+    <title>Loamen frp</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.cn/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.cn/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Loamen Frp</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Loamen Frp</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">首页</a></li>
+                    <li><a href="http://www.loamen.com" target="_blank">龙门实验室</a></li>
+                    <li><a href="https://github.com/loamen/dockerfile-templates/tree/master/frp"
+                            target="_blank">Github</a></li>
+                    <li><a href="https://gitee.com/loamen/dockerfile-templates/tree/master/frp" target="_blank">码云</a>
+                    </li>
+                    <li><a href="https://gofrp.org/docs" target="_blank">frp</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Loamen frp</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS
+                等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loamen frp
+                将frp和nginx进行了结合封装，通过内置nginx将局域网内部服务进行转发，再将frp的端口配置为nginx的指定端口，以达到内外网隔离的目的，并且可映射多台内网服务到外网。</p>
+            <p>Docker获取命令：<span class="label label-success">docker pull loamen/frp:latest</span></p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="https://hub.docker.com/repository/docker/loamen/frp"
+                    target="_blank" role="button">详情
+                    &raquo;</a>
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                <div class="blog-post">
+                    <h2 class="blog-post-title">示例</h2>
+                    <p class="blog-post-meta">现有三个服务，分别部署在内网的三台服务器上。</p>
+                    <p>如：内网服务A<span class="label label-default">192.168.0.101:8001</span>、内网服务B<span
+                            class="label label-default">192.168.0.102:8002</span>、内网服务C<span
+                            class="label label-default">192.168.0.103:8003</span></p>
+                    <hr>
+                    <p>Nginx转发配置<span class="label label-info">default.conf</span>如下：</p>
+                    <pre>
+                    server {
+                        listen       8001;
+                        server_name  localhost;
+                    
+                    
+                        location / {
+                            proxy_pass http://192.168.0.101:8001/;
+                            proxy_set_header Host $host:$server_port;
+                        }
+                    }
+                    
+                    server {
+                        listen       8002;
+                        server_name  localhost;
+                    
+                    
+                        location / {
+                            proxy_pass http://192.168.0.102:8002/;
+                            proxy_set_header Host $host:$server_port;
+                        }
+                    }
+                    
+                    server {
+                        listen       8003;
+                        server_name  localhost;
+                    
+                    
+                        location / {
+                            proxy_pass http://192.168.0.103:8003/;
+                            proxy_set_header Host $host:$server_port;
+                        }
+                    }
+                </pre>
+                </div><!-- /.blog-post -->
+                <div class="blog-post">
+                    <p class="blog-post-meta">将frp配置端口与nginx端口相对应，如：</p>
+                    <p><span class="label label-success">frp 8001端口</span>←→<span class="label label-default">内网服务A
+                            192.168.0.101:8001</span></p>
+                    <p><span class="label label-success">frp 8002端口</span>←→<span class="label label-default">内网服务B
+                            192.168.0.102:8002</span></p>
+                    <p><span class="label label-success">frp 8002端口</span>←→<span class="label label-default">内网服务C
+                            192.168.0.103:8003</span></p>
+                    <hr />
+                    <p>frp客户端配置<span class="label label-info">frpc.ini</span>如下：</p>
+                    <pre>
+                        [web_a]
+                        type = http
+                        local_port = 8001
+                        custom_domains = a.loamen.com
+
+                        [web_b]
+                        type = http
+                        local_port = 8002
+                        custom_domains = b.loamen.com
+
+                        [web_c]
+                        type = http
+                        local_port = 8003
+                        custom_domains = c.loamen.com
+                    </pre>
+                </div><!-- /.blog-post -->
+
+                <img src="images/frp_net.png" title="loamen frp网络拓扑图" alt="loamen.com" class="img-responsive" />
+                <h3 class="text-center"><a href="http://www.loamen.com" target="_blank">loamen frp网络拓扑图</a></h3>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">CopyRight&copy;2022 <a href="http://www.loamen.com" target="_blank">loamen.com</a></p>
+        </div>
+    </footer>
+</body>
+
 </html>
